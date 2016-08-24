@@ -2,8 +2,8 @@
 
 namespace UcloudStorage;
 
-use UcloudStorage\CF_Authentication;
-use UcloudStorage\CF_Connection;
+use CF_Authentication;
+use CF_Connection;
 
 class UcloudStorageClient
 {
