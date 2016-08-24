@@ -1,2 +1,7 @@
 <?php
-class CDNNotEnabledException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class CDNNotEnabledException extends \Exception
+{
+}

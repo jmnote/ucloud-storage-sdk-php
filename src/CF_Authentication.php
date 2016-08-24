@@ -58,12 +58,27 @@
  * @package php-cloudfiles-kt
  */
 
+namespace UcloudStorage;
+
+use UcloudStorage\Exception\AuthenticationException;
+use UcloudStorage\Exception\BadContentTypeException;
+use UcloudStorage\Exception\CDNNotEnabledException;
+use UcloudStorage\Exception\ConnectionNotOpenException;
+use UcloudStorage\Exception\InvalidResponseException;
+use UcloudStorage\Exception\InvalidUTF8Exception;
+use UcloudStorage\Exception\IOException;
+use UcloudStorage\Exception\MisMatchedChecksumException;
+use UcloudStorage\Exception\NonEmptyContainerException;
+use UcloudStorage\Exception\NoSuchAccountException;
+use UcloudStorage\Exception\NoSuchContainerException;
+use UcloudStorage\Exception\NoSuchObjectException;
+use UcloudStorage\Exception\SyntaxException;
+
 define("DEFAULT_CF_API_VERSION", 1);
 define("MAX_CONTAINER_NAME_LEN", 256);
 define("MAX_OBJECT_NAME_LEN", 1024);
 define("MAX_OBJECT_SIZE", 5*1024*1024*1024+1);
-define("AUTHURL", "https://api.ucloudbiz.olleh.com/storage/v1/auth");
-define("JPAUTHURL", "https://api.ucloudbiz.olleh.com/storage/v1/authjp");
+
 /**
  * Class for handling Cloud Files Authentication, call it's {@link authenticate()}
  * method to obtain authorized service urls and an authentication token.
@@ -72,11 +87,10 @@ define("JPAUTHURL", "https://api.ucloudbiz.olleh.com/storage/v1/authjp");
  * <code>
  * Create the authentication instance
  * 
- * $auth = new CF_Authentication("ucloudbiz_포탈_ID", "api_key");
+ * $auth = new CF_Authentication("ucloudbiz_포탈_ID", "api_key", "auth_url");
  *
- * $auth = new CF_Authentication("ucloudbiz_포탈_ID", "api_key", NULL, AUTHURL);
- * Using the AUTHURL keyword will force the api to use the 'https://api.ucloudbiz.olleh.com/storage/v1/auth'.
- * 만일 JPN 서비스를 이용하고자 할 경우, JPAUTHURL 을 사용하면 된다.   
+ * auth_url은 "https://api.ucloudbiz.olleh.com/storage/v1/auth"
+ * JPN 서비스를 이용하려면 "https://api.ucloudbiz.olleh.com/storage/v1/authjp"
  *
  * NOTE: Some versions of cURL include an outdated certificate authority (CA)
  *       file.  This API ships with a newer version obtained directly from
@@ -95,8 +109,8 @@ define("JPAUTHURL", "https://api.ucloudbiz.olleh.com/storage/v1/authjp");
 class CF_Authentication
 {
     public $dbug;
-    public $username;
-    public $api_key;
+    private $username;
+    private $api_key;
     public $auth_host;
     public $account;
 
@@ -115,9 +129,8 @@ class CF_Authentication
      * @param string $account  <i>Account name</i>
      * @param string $auth_host  <i>Authentication service URI</i>
      */
-    function __construct($username=NULL, $api_key=NULL, $auth_host=AUTHURL)
+    function __construct($username=NULL, $api_key=NULL, $auth_host=NULL)
     {
-
         $this->dbug = False;
         $this->username = $username;
         $this->api_key = $api_key;
@@ -187,13 +200,10 @@ class CF_Authentication
             throw new AuthenticationException("Invalid username or access key.");
         }
         if ($status < 200 || $status > 299) {
-            throw new InvalidResponseException(
-                "Unexpected response (".$status."): ".$reason);
+            throw new InvalidResponseException("Unexpected response (".$status."): ".$reason);
         }
-
         if (!($surl || $curl) || !$atoken) {
-            throw new InvalidResponseException(
-                "Expected headers missing from auth service.");
+            throw new InvalidResponseException("Expected headers missing from auth service.");
         }
         $this->storage_url = $surl;
         $this->auth_token = $atoken;

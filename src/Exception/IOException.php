@@ -1,2 +1,7 @@
 <?php
-class IOException extends Exception { }
+
+namespace UcloudStorage\Exceptions;
+
+class IOException extends \Exception
+{
+}

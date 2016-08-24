@@ -1,2 +1,7 @@
 <?php
-class SyntaxException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class SyntaxException extends \Exception
+{
+}

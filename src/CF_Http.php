@@ -23,6 +23,8 @@
  * @package php-cloudfiles-http-kt
  */
 
+namespace UcloudStorage;
+
 define("PHP_CF_VERSION", "1.7.11");
 define("USER_AGENT", sprintf("PHP-CloudFiles/%s", PHP_CF_VERSION));
 define("MAX_HEADER_NAME_LEN", 128);
@@ -174,7 +176,7 @@ class CF_Http
         if ($path) {
             $this->cabundle_path = $path;
         } else {
-            $this->cabundle_path = dirname(__FILE__) . "/share/cacert.pem";
+            $this->cabundle_path = dirname(__FILE__) . "/../resources/cacert.pem";
         }
         if (!file_exists($this->cabundle_path)) {
             throw new IOException("Could not use CA bundle: "

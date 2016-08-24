@@ -1,2 +1,7 @@
 <?php
-class AuthenticationException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class AuthenticationException extends \Exception
+{
+}

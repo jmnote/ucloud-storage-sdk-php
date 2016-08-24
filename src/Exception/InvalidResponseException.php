@@ -1,2 +1,7 @@
 <?php
-class InvalidResponseException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class InvalidResponseException extends \Exception
+{
+}

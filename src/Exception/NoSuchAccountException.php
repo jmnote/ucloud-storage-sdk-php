@@ -1,2 +1,7 @@
 <?php
-class NoSuchAccountException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class NoSuchAccountException extends \Exception
+{
+}

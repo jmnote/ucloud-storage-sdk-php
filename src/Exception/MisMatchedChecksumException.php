@@ -1,2 +1,7 @@
 <?php
-class MisMatchedChecksumException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class MisMatchedChecksumException extends \Exception
+{
+}

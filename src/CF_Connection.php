@@ -30,6 +30,9 @@
  *
  * @package php-cloudfiles-kt
  */
+
+namespace UcloudStorage;
+
 class CF_Connection
 {
     public $dbug;

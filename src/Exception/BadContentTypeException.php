@@ -1,2 +1,7 @@
 <?php
-class BadContentTypeException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class BadContentTypeException extends \Exception
+{
+}

@@ -8,6 +8,9 @@
  *
  * @package php-cloudfiles-kt
  */
+
+namespace UcloudStorage;
+
 class CF_Object
 {
     public $container;
@@ -94,7 +97,7 @@ class CF_Object
             return;
 
         if (function_exists("finfo_open")) {
-            $local_magic = dirname(__FILE__) . "/share/magic";
+            $local_magic = dirname(__FILE__) . "/../resources/magic";
             $finfo = @finfo_open(FILEINFO_MIME, $local_magic);
 
             if (!$finfo)

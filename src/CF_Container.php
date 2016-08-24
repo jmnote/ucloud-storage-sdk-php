@@ -13,6 +13,9 @@
  *
  * @package php-cloudfiles-kt
  */
+
+namespace UcloudStorage;
+
 class CF_Container
 {
     public $cfs_auth;

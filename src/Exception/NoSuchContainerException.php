@@ -1,2 +1,7 @@
 <?php
-class NoSuchContainerException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class NoSuchContainerException extends \Exception
+{
+}

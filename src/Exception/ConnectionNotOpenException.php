@@ -1,2 +1,7 @@
 <?php
-class ConnectionNotOpenException extends Exception { }
+
+namespace UcloudStorage\Exception;
+
+class ConnectionNotOpenException extends \Exception
+{
+}
