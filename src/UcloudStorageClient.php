@@ -15,7 +15,7 @@ class UcloudStorageClient
 			$auth->authenticate();
 			return new CF_Connection($auth);
 		} catch (\Exception $e) {
-		    $exception_message = $e->getMessage();
+			$exception_message = $e->getMessage();
 			return false;
 		}
 	}
