@@ -3,7 +3,6 @@
     "homepage": "https://github.com/jmnote/ucloud-storage-sdk-php",
     "description": "ucloud storage SDK for PHP - Use ucloud storage in your PHP project",
     "keywords": ["kt","ucloud","storage","sdk","cloud"],
-    "version": "dev-master",
     "type": "library",
     "require": {
         "php": ">=5.3.0"
